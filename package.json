@@ -1,0 +1,18 @@
+{
+  "name": "cookieboot",
+  "version": "1.0.0",
+  "description": "cookiebot",
+  "main": "main.js",
+  "dependencies": {
+    "ascii-art": "^1.4.3",
+    "discord.js": "^11.4.0",
+    "moment": "^2.22.2",
+    "ms": "^2.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xCookieTM",
+  "license": "ISC"
+}
