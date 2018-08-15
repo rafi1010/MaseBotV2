@@ -12,7 +12,7 @@ const warns = JSON.parse(fs.readFileSync("./uyarilar.json", "utf8"));
 //let suggestChannel = JSON.parse(fs.readFileSync('Storage/suggestChannel.json', 'utf8'));
 
 client.on('ready', () => {
-    console.log(`The client has been turned on! His name is ${client.user.tag}. Prefix: "cb!". I jest na ${client.guilds.size} serwerach!`);
+    console.log(`The client has been turned on! His name is ${client.user.tag}. Prefix: "ma!". I jest na ${client.guilds.size} serwerach!`);
     client.user.setStatus(`dnd`);
     client.user.setActivity(`${client.guilds.size} servers.`, {type: "WATCHING"});
 });
