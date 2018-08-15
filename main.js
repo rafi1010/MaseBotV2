@@ -6,8 +6,8 @@ const moment = require("moment");
 const fs = require("fs");
 const ms = require("ms");
 //const coins = require("./coins.json");
-const warns = JSON.parse(fs.readFileSync("./uyarılar.json", "utf8"));
-//let warns = JSON.parse(fs.readFileSync("./uyarılar.json", "utf8"));
+const warns = JSON.parse(fs.readFileSync("./uyarilar.json", "utf8"));
+//let warns = JSON.parse(fs.readFileSync("./uyarilar.json", "utf8"));
 //let userData = JSON.parse(fs.readFileSync('Storage/userData.json', `utf8`));
 //let suggestChannel = JSON.parse(fs.readFileSync('Storage/suggestChannel.json', 'utf8'));
 
