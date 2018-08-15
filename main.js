@@ -25,9 +25,9 @@ client.on("message", async message => {
 
     let prefixler = JSON.parse(fs.readFileSync("./prefixler.json", "utf8"));
 
-    if(!prefix[message.guild.id]){
-        prefix[message.guild.id] = {
-            prefix: ayarlar.prefix
+    if(!prefixler[message.guild.id]){
+        prefixler[message.guild.id] = {
+            prefixler: ayarlar.prefix
         };
     }
 
@@ -51,8 +51,8 @@ client.on("message", async message => {
 
     let suggestChannel = suggestChannels[message.guild.id].suggestChannels;
 
-    let prefix = prefixler[message.guild.id].prefixler;
-    //let prefix = ayarlar.prefix;
+    //let prefix = prefixler[message.guild.id].prefixler;
+    let prefix = ayarlar.prefix;
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let msg = message.content.startsWith;
