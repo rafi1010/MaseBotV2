@@ -25,9 +25,9 @@ client.on("message", async message => {
 
     let prefixler = JSON.parse(fs.readFileSync("./prefixler.json", "utf8"));
 
-    if(!prefixler[message.guild.id]){
-        prefixler[message.guild.id] = {
-            prefixler: ayarlar.prefix
+    if(!prefix[message.guild.id]){
+        prefix[message.guild.id] = {
+            prefix: ayarlar.prefix
         };
     }
 
