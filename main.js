@@ -811,4 +811,4 @@ bot.on("message", async message => {
 //let everyone = message.guild.roles.find(`name`, "@everyone");
 //if(args[0] == 'lock') return message.channel.overwritePermissions(everyone, { SEND_MESSAGES: false, ADD_REACTIONS: false }), message.channel.send(`${bot.emojis.find(`name`, 'success')} Okay, according to your wishes, I blocked this channel! Others can not write here.`);
 
-bot.login(konfiguracja.token);
+bot.login(process.env.BOT_TOKEN);
