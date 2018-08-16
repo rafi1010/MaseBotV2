@@ -1,6 +1,6 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-var konfiguracja = require("./ayarlar.json");
+var ayarlar = require("./ayarlar.json");
 const ascii = require("ascii-art");
 const moment = require("moment");
 const fs = require("fs");
@@ -33,7 +33,7 @@ bot.on("message", async message => {
 
     if(!prefixler[message.guild.id]){
         prefixler[message.guild.id] = {
-            prefixler: konfiguracja.prefix
+            prefixler: ayarlar.prefix
         };
     }
 
@@ -41,7 +41,7 @@ bot.on("message", async message => {
 
     if(!language[message.guild.id]){
         language[message.guild.id] = {
-            language: konfiguracja.defaultLang
+            language: ayarlar.defaultLang
         };
     }
 
@@ -49,7 +49,7 @@ bot.on("message", async message => {
 
     if(!suggestChannels[message.guild.id]){
         suggestChannels[message.guild.id] = {
-            suggestChannels: konfiguracja.defaultSuggestChannel
+            suggestChannels: ayarlar.defaultSuggestChannel
         };
     }
 
@@ -58,7 +58,7 @@ bot.on("message", async message => {
     let suggestChannel = suggestChannels[message.guild.id].suggestChannels;
 
     let prefix = prefixler[message.guild.id].prefixler;
-    //let prefix = konfiguracja.prefix;
+    //let prefix = ayarlar.prefix;
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let msg = message.content.startsWith;
@@ -163,7 +163,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}ascii`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         ascii.font(args.join(' '), 'Doom', function(rendered) {
           rendered = rendered.trimRight();
 
@@ -177,7 +177,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}roles`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         const rolesList = message.guild.roles.map(e=>e.toString()).join(", ");
         const rolesEmbed = new Discord.RichEmbed()
         .setColor("RANDOM")
@@ -206,7 +206,7 @@ bot.on("message", async message => {
     //}
 
     if(cmd === `${prefix}profile`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let aUser = message.mentions.users.first() || message.author;
         const userinfo = new Discord.RichEmbed()
         .setColor("FFA07A")
@@ -224,7 +224,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}server` || cmd === `${prefix}server-info` || cmd === `${prefix}serverinfo`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
 
         let sicon = message.guild.iconURL;
         let serverembed = new Discord.RichEmbed()
@@ -247,7 +247,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}channel`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_CHANNELS")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_CHANNELS` permissions.");
         let channelname = args.slice(1).join(" ");
         let everyone = message.guild.roles.find(`name`, "@everyone");
@@ -278,7 +278,7 @@ bot.on("message", async message => {
     //})
 
     if(cmd === `${prefix}post`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let postArgs = args.join(" ");
         const postEmbed = new Discord.RichEmbed()
         .setColor("RANDOM")
@@ -295,7 +295,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}eval`){
-        //if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        //if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(message.author.id !== '396284197389729793') return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `developer` permissions, check them using `cb!permissions`.")
         if(!args[0]) return message.channel.send(`${bot.emojis.find(`name`, 'error')}` + " Please, give me the code. If you do not know how to use the command, use `cb!help eval`.")
         let result = eval(args.join(" ")).toString()
@@ -331,7 +331,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}help`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         const helpmsg = new Discord.RichEmbed()
         .setColor('RANDOM')
         .setTitle('My commands')
@@ -357,7 +357,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}news`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let newsEmbed = new Discord.RichEmbed()
         .setColor('RANDOM')
         .setTitle('New information!')
@@ -367,7 +367,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}ban`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         if(!bUser) return message.channel.send(":x: You must mark the correct user!");
         let bReason = args.join(" ").slice(22);
@@ -401,7 +401,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}serverlist9929319238109310901931039010930190391903`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         const guildArray = bot.guilds.map((guild) => {
           return `${guild.name}`
         })
@@ -416,12 +416,12 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}serverlist`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         message.channel.send(`${bot.emojis.find(`name`, 'alert')} ***__COMMAND DISABLED__*** ${bot.emojis.find(`name`, 'alert')}`);
     }
 
     if(cmd === `${prefix}permissions`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if (message.author.id === '396284197389729793') return message.channel.send(`${bot.emojis.find(`name`, 'pass')}` + " Your permission level is: `Creator of CookieBOT` (5)");
         if (message.author.id === '372026600989917195') return message.channel.send(`${bot.emojis.find(`name`, 'pass')}` + " Your permission level is: `Global Support` (4)")
         if (message.guild.owner) return message.channel.send(`${bot.emojis.find(`name`, 'pass')}` + " Your permission level is: `Server Owner` (3)");
@@ -432,7 +432,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}removerole`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_MEMBERS` permissions.");
         let rMember = message.guild.member(message.mentions.users.first()) ||  message.guild.members.get(args[0]);
         if(!rMember) return message.channel.send(`${bot.emojis.find(`name`, 'error')} You must enter the correct user!`);
@@ -453,7 +453,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}addrole`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_MEMBERS` permissions.");
         let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
         if(!rMember) return message.channel.send(`${bot.emojis.find(`name`, 'error')} You must enter the correct user!`);
@@ -475,7 +475,7 @@ bot.on("message", async message => {
 
 
     if(cmd === `${prefix}info`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         const infoembed = new Discord.RichEmbed()
         .setColor('RANDOM')
         .addField('Bot username:', `${bot.user.tag}`)
@@ -484,7 +484,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}avatar`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let aUser = message.mentions.users.first() || message.author || message.user.id;
         let avEmbed = new Discord.RichEmbed()
         .setColor("RANDOM")
@@ -498,7 +498,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}hug`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let aUser = message.mentions.users.first() || message.author || message.user.id;
         let huglinks = ["https://media.giphy.com/media/l0HlOvJ7yaacpuSas/giphy.gif", "https://media.giphy.com/media/xT39CXg70nNS0MFNLy/giphy.gif", "https://media.giphy.com/media/143v0Z4767T15e/giphy.gif", "https://media.giphy.com/media/BVRoqYseaRdn2/giphy.gif", "https://media.giphy.com/media/od5H3PmEG5EVq/giphy.gif"];
         let math = Math.floor((Math.random() * huglinks.length));
@@ -512,7 +512,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}survey` || cmd === `${prefix}vote`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(":lock: You do not have sufficient permissions to create a survey.");
         const ankietaMessage = args.join(" ");
         //let ankieta = await message.channel.send(ankietaEmbed);
@@ -537,7 +537,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}reverse`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!args[0]) return message.channel.send(':x: You must enter some text!');
         if (args[0].includes('enoyreve@')) return message.channel.send(`${bot.emojis.find(`name`, 'alert')} You will not use a bot for this purpose! You are not a good user!`);
         if (args[0].includes('ereh@')) return message.channel.send(`${bot.emojis.find(`name`, 'alert')} You will not use a bot for this purpose! You are not a good user!`);
@@ -554,7 +554,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}cat`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let catlinks = ["https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", "https://media.giphy.com/media/l1J3pT7PfLgSRMnFC/giphy.gif", "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif", "https://media.giphy.com/media/6uMqzcbWRhoT6/giphy.gif", "https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif", "https://media.giphy.com/media/11s7Ke7jcNxCHS/giphy.gif", "https://media.giphy.com/media/Nm8ZPAGOwZUQM/giphy.gif", "https://media.giphy.com/media/Q56ZI04r6CakM/giphy.gif"];
         let math = Math.floor((Math.random() * catlinks.length));
         let catEmbed = new Discord.RichEmbed()
@@ -575,7 +575,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}8ball`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         //if(!args[2]) return message.channel.send(`${bot.emojis.find(`name`, 'error')} Please, give me the full question!`);
         if(!args[0]) return message.channel.send(`${bot.emojis.find(`name`, 'error')} Ahh... You did not give a question, can I know why?`);
         let replies = ["Yes of course...", "Sorry but no...", "How can I know that?", "You can ask later?", "Mmm... No."];
@@ -596,7 +596,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}profilei23289239829832983`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let aUser = message.mentions.users.first() || message.author;
         const profileEmbed = new Discord.RichEmbed()
         .setColor("RANDOM")
@@ -606,7 +606,7 @@ bot.on("message", async message => {
 
 
     if(cmd === `${prefix}choose`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         var odp = Math.floor(Math.random() *2) + 1
         var a = args.join(" ").split(";")[0]
         var b = args.join(" ").split(";")[1]
@@ -624,7 +624,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}clear`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_MESSAGES` permissions, check them using `cb!permissions`.");
 
         let messagecount = parseInt(args.join(' '));
@@ -636,13 +636,13 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}ping`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         const m = await message.channel.send("Ping :ping_pong: ");
         m.edit(`:ping_pong: Pong! ${m.createdTimestamp - message.createdTimestamp}ms. API is ${Math.round(bot.ping)}ms`);
     }
 
     if(cmd === `${prefix}setprefix`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_SERVER")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_SERVER` permissions.");
         if(!args[0]) return message.channel.send(`${bot.emojis.find(`name`, 'error')} An error occurred, apparently you did not enter a value. Use **${prefix}help setprefix** for help.`);
 
@@ -666,7 +666,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}setSuggestChannel`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         if(!message.member.hasPermission("MANAGE_SERVER")) return message.channel.send(`${bot.emojis.find(`name`, 'lock')}` + " You do not have sufficient permissions. You must have `MANAGE_SERVER` permissions.");
         if(!args[0]) return message.channel.send(`${bot.emojis.find(`name`, 'lock')} An error occurred, apparently you did not enter a value. Use **${prefix}help** setprefix for help.`);
 
@@ -697,7 +697,7 @@ bot.on("message", async message => {
     }
 
     if(cmd === `${prefix}suggest`){
-        if(konfiguracja.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
+        if(ayarlar.commands === "disabled") return message.channel.send(`${bot.emojis.find(`name`, 'error')} All commands in the bot have been disabled!`);
         let suggestContent = args.join(" ");
         if(!args[0]) return message.channel.send(`${bot.emojis.find(`name`, 'error')} What is your suggestion? Because from what I see it is nothing.`)
         const suggestEmbed = new Discord.RichEmbed()
